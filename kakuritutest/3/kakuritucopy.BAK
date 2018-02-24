@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MAX 100
+
+int main(void)
+{
+	int rarerity[10]{
+		normal, rare, super, ultimate, sec, sec2, 1, 2, 3, 4
+	}
+    int     d, ds[10];
+    float   rnd;
+
+    srand(time(NULL));       /* 乱数の初期化 */
+    rnd = (float)rand() / 32768.0;     /* 1未満の乱数計算 */
+    d = (int)(rnd * 10.0);     /* 10未満の乱数計算 */
+    ++ds[d];      /* 回数カウント */}
+    printf("%d : %8d (%5.2f%%)\n", rarerity, ds[rarerity], (float)ds[rarerity] / MAX * 100.0);
+    return 0;
+}

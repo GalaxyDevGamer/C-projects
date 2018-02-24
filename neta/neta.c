@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+void main(){
+	char st1;
+	char st2;
+	char st3;
+	char st4;
+	
+	while ( st1 != 'y'){
+		printf("ハードウェアを開発したい？？？よね？？？");
+		scanf("%s", &st1);
+	}
+	while ( st2 != 'y'){
+		printf("m9(^Д^)ﾌﾟｷﾞｬｰ");
+		scanf("%s", &st2);
+	}
+	while ( st3 != 'y'){
+		printf("本気だよな???");
+		scanf("%s", &st3);
+	}
+	while ( st4 != 'y'){
+		printf("共に起業するよな???");
+		scanf("%s", &st4);
+	}
+}

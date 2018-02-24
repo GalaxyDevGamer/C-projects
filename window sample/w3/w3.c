@@ -1,0 +1,112 @@
+#include <windows.h>
+#define ID_MYTIMER 10
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+ATOM InitApp(HINSTANCE);
+BOOL InitInstance(HINSTANCE, int);
+HFONT MyCreateFont(int, DWORD, LPCTSTR);
+
+char szClassName[] = "sample01";
+
+int WINAPI WinMain(HINSTANCE hCurInst, HINSTANCE hPrevInst, LPSTR lpsCmdLine, int nCmdShow)
+{
+	MSG msg;
+	BOOL bRet;
+	
+	if (!InitApp(hCurInst))
+		return FALSE;
+	if (!InitInstance(hCurInst, nCmdShow))
+		return FALSE;
+	while ((bRet = GetMessage(&msg, NULL, 0, 0)) != 0){
+		if (bRet == -1){
+			MessageBox(NULL, "GetMessageError", "Error", MB_OK);
+			break;
+		} else {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+	return (int)msg.wParam;
+}
+
+ATOM InitApp(HINSTANCE hInst)
+{
+	WNDCLASSEX wc;
+	wc.cbSize = sizeof(WNDCLASSEX);
+	wc.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
+	wc.lpfnWndProc = WndProc;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hInst;
+	wc.hIcon = (HICON)LoadImage(NULL, MAKEINTRESOURCE(IDI_APPLICATION), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED);
+	wc.hCursor = (HCURSOR)LoadImage(NULL, MAKEINTRESOURCE(IDC_ARROW), IMAGE_CURSOR, 0, 0, LR_DEFAULTSIZE | LR_SHARED);
+	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	wc.lpszMenuName = NULL;
+	wc.lpszClassName = (LPCSTR)szClassName;
+	wc.hIconSm = (HICON)LoadImage(NULL, MAKEINTRESOURCE(IDI_APPLICATION), IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED);
+	return (RegisterClassEx(&wc));
+}
+
+BOOL InitInstance(HINSTANCE hInst, int nCmdShow)
+{
+	HWND hWnd;
+	hWnd = CreateWindow(szClassName, "初めてのGUIプログラム", WS_OVERLAPPEDWINDOW & -WS_THICKFRAME & -WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInst, NULL);
+	if (!hWnd)
+		return FALSE;
+	ShowWindow(hWnd, nCmdShow);
+	UpdateWindow(hWnd);
+	return TRUE;
+}
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
+{
+	int id;
+	HDC hdc;
+	PAINTSTRUCT ps;
+	static char szTime[64], szDate[64];
+	SYSTEMTIME st;
+	HFONT hFont1, hFont2;
+	switch(msg){
+		case WM_CREATE:
+			SetTimer(hWnd, ID_MYTIMER, 500, NULL);
+			break;
+		case WM_TIMER:
+			if (wp != ID_MYTIMER)
+				return (DefWindowProc(hWnd, msg, wp, lp));
+			GetLocalTime(&st);
+			wsprintf(szTime, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond);
+			wsprintf(szTime, "%d年%02d月%02d日", st.wYear, st.wMonth, st.wDay);
+			InvalidateRect(hWnd, NULL, TRUE);
+			SetWindowText(hWnd, szTime);
+			break;
+		case WM_LBUTTONDBLCLK:
+			SendMessage(hWnd, WM_CLOSE, 0,0);
+			break;
+		case WM_PAINT:
+			hdc = BeginPaint(hWnd, &ps);
+			hFont1 = MyCreateFont(12, SHIFTJIS_CHARSET, "MS ゴシック");
+			SelectObject(hdc, hFont1);
+			TextOut(hdc, 5, 5, szDate, (int)strlen(szDate));
+			hFont2 = MyCreateFont(30, ANSI_CHARSET, "MS ゴシック");
+			SelectObject(hdc, hFont2);
+			TextOut(hdc, 10, 20, szTime, (int)strlen(szTime));
+			DeleteObject(hFont1);
+			DeleteObject(hFont2);
+			EndPaint(hWnd, &ps);
+			break;
+		case WM_CLOSE:
+			id = MessageBox(hWnd, "やめる？", "確認", MB_YESNO | MB_ICONQUESTION);
+			if (id == IDYES) {
+				if (KillTimer(hWnd, ID_MYTIMER) == 0) {
+					MessageBox(hWnd, "KT ErroR", "ERROR", MB_OK | MB_ICONEXCLAMATION);
+				}
+				DestroyWindow(hWnd);
+			}
+			break;
+		case WM_DESTROY:
+			PostQuitMessage(0);
+			break;
+		default:
+			return (DefWindowProc(hWnd, msg, wp, lp));
+	}
+	return 0;
+}

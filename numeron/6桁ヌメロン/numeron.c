@@ -1,0 +1,351 @@
+#include<stdio.h>
+#include<direct.h>
+#include<string.h>
+#include<stdlib.h>
+int ran1;
+int ran2;
+int ran3;
+int ran4;
+int ran5;
+int ran6;
+int tf1;
+int tf2;
+int tf3;
+int tf4;
+int tf5;
+int tf6;
+int userran1;
+int userran2;
+int userran3;
+int userran4;
+int userran5;
+int userran6;
+int correct;
+int match;
+int cnt;
+int max;
+int defaults;
+void make_ransu(){
+	puts("Creating Numbers...");
+	srand((unsigned)time(NULL));
+	ran1 = rand() % 10;
+	ran2 = rand() % 10;
+	ran3 = rand() % 10;
+	ran4 = rand() % 10;
+	ran5 = rand() % 10;
+	ran6 = rand() % 10;
+	puts("Numbers Created!");
+}
+void guess_num(){
+	puts("Input First Number");
+	scanf("%d", &userran1);
+	puts("Input Second Number");
+	scanf("%d", &userran2);
+	puts("Input Third Number");
+	scanf("%d", &userran3);
+	puts("Input Fourth Number");
+	scanf("%d", &userran4);
+	puts("Input Fifth Number");
+	scanf("%d", &userran5);
+	puts("Input Sixth Number");
+	scanf("%d", &userran6);
+}
+int compare(){
+	correct=0;
+	if(userran1==ran1){
+		correct = correct += 1;
+		tf1 = 1;
+	}
+	if(userran2==ran2){
+		correct = correct += 1;
+		tf2 = 1;
+	}
+	if(userran3==ran3){
+		correct = correct += 1;
+		tf3 = 1;
+	}
+	if(userran4==ran4){
+		correct = correct += 1;
+		tf4 = 1;
+	}
+	if(userran5==ran5){
+		correct = correct += 1;
+		tf5 = 1;
+	}
+	if(userran6==ran6){
+		correct = correct += 1;
+		tf6 = 1;
+	}
+	if(correct==6){
+		return 1;
+	}
+	else{
+		return 0;
+	}
+}
+int compare2(){
+	match=0;
+	if(tf1 == 0){
+		if(userran1==ran2){
+			if(tf2 == 1){
+			}
+			else{
+				match = match += 1;
+				tf1=1;
+				tf2=1;
+			}
+		}
+		if(userran1==ran3){
+			if(tf3 == 1){
+			}
+			else{
+				match = match += 1;
+				tf1=1;
+				tf3=1;
+			}
+		}
+		if(userran1==ran4){
+			if(tf4 == 1){
+			}
+			else{
+				match = match += 1;
+				tf1=1;
+				tf4=1;
+			}
+		}
+	}
+	if(tf2 == 0){
+		if(userran2==ran1){
+			if(tf1 == 1){
+			}
+			else{
+				match = match += 1;
+				tf2=1;
+				tf1=1;
+			}
+		}
+		if(userran2==ran3){
+			if(tf3 == 1){
+			}
+			else{
+				match = match += 1;
+				tf2=1;
+				tf3=1;
+			}
+		}
+		if(userran2==ran4){
+			if(tf4 == 1){
+			}
+			else{
+				match = match += 1;
+				tf2=1;
+				tf4=1;
+			}
+		}
+	}
+	if(tf3 == 0){
+		if(userran3==ran1){
+			if(tf1 == 1){
+			}
+			else{
+				match = match += 1;
+				tf3=1;
+				tf1=1;
+			}
+		}
+		if(userran3==ran2){
+			if(tf2 == 1){
+			}
+			else{
+				match = match += 1;
+				tf3=1;
+				tf2=1;
+			}
+		}
+		if(userran3==ran4){
+			if(tf4 == 1){
+			}
+			else{
+				match = match += 1;
+				tf3=1;
+				tf4=1;
+			}
+		}
+	}
+	if(tf4 == 0){
+		if(userran4==ran1){
+			if(tf1 == 1){
+			}
+			else{
+				match = match += 1;
+				tf4=1;
+				tf1=1;
+			}
+		}
+		if(userran4==ran2){
+			if(tf2 == 1){
+			}
+			else{
+				match = match += 1;
+				tf4=1;
+				tf2=1;
+			}
+		}
+		if(userran4==ran3){
+			if(tf3 == 1){
+			}
+			else{
+				match = match += 1;
+				tf4=1;
+				tf3=1;
+			}
+		}
+	}
+	if(tf5 == 0){
+		if(userran5==ran1){
+			if(tf1 == 1){
+			}
+			else{
+				match = match += 1;
+				tf5=1;
+				tf1=1;
+			}
+		}
+		if(userran5==ran2){
+			if(tf2 == 1){
+			}
+			else{
+				match = match += 1;
+				tf5=1;
+				tf2=1;
+			}
+		}
+		if(userran5==ran4){
+			if(tf4 == 1){
+			}
+			else{
+				match = match += 1;
+				tf5=1;
+				tf4=1;
+			}
+		}
+	}
+	if(tf6 == 0){
+		if(userran6==ran1){
+			if(tf1 == 1){
+			}
+			else{
+				match = match += 1;
+				tf6=1;
+				tf1=1;
+			}
+		}
+		if(userran6==ran2){
+			if(tf2 == 1){
+			}
+			else{
+				match = match += 1;
+				tf6=1;
+				tf2=1;
+			}
+		}
+		if(userran6==ran3){
+			if(tf3 == 1){
+			}
+			else{
+				match = match += 1;
+				tf6=1;
+				tf3=1;
+			}
+		}
+	}
+	return 0;
+}
+int setting(){
+	int times;
+	puts("input challenge times you want to try.Default is 5 times.");
+	puts("Or type '0' to exit setting");
+	scanf("%d", &times);
+	if(times<=5&&times>=1){
+		puts("ERROR: Challenge times must be bigger than Default");
+		return setting();
+	}
+	if(times>5){
+		max = times-5;
+		return main();
+	}
+	else{
+		return main();
+	}
+}
+int main(){
+	int switch1;
+	char yesno;
+	char yesno2;
+	cnt=0;
+	match = 0;
+	correct = 0;
+	tf1 = 0;
+	tf2 = 0;
+	tf3 = 0;
+	tf4 = 0;
+	if(max>0){
+		defaults=6+max;
+	}
+	else{
+		defaults=6;
+	}
+	puts("Numeron System 1.0.1");
+	puts("Numbers Created by Numeron System is 6 digits");
+	printf("Try to guess the 6 digits within %d times!\n", defaults-1);
+	puts("Press 1 to Start, 2 to Setting, else to Exit");
+	scanf("%d", &switch1);
+	if(switch1==1){
+		make_ransu();
+		while(correct!=6){
+			cnt+=1;
+			if(cnt==defaults){
+				printf("Reached %d times... Game Over. The Digits were %d%d%d%dTry again?", defaults-1, ran1, ran2, ran3, ran4);
+				scanf("%s", &yesno);
+				if(yesno == 'n'){
+					exit(1);
+				}
+				else{
+					return main();
+				}
+			}
+			guess_num();
+			compare();
+			if(compare()==1){
+				break;
+			}	
+			else{
+				compare2();
+			}
+			puts("Result");
+			printf("Correct%d", correct);
+			printf("Match%d", match);
+			tf1=0;
+			tf2=0;
+			tf3=0;
+			tf4=0;
+		}
+		if(compare()==1){
+			puts("Congradurations!!! Perfect! Try again?");
+			scanf("%s", &yesno2);
+			if(yesno == 'n'){
+				exit(1);
+			}
+			else{
+				return main();
+			}
+		}
+	}
+	if(switch1==2){
+		setting();
+	}
+	else{
+		exit(1);
+	}
+	return 0;
+}
